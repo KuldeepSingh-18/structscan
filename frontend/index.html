@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>StructScan — Early Structural Damage Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ SPLASH -->
+<div id="splash">
+  <div id="splashInner">
+    <div id="splashLogo">
+      <span class="spl-s">S</span><span class="spl-rest">TRUCTSCAN</span>
+    </div>
+    <div id="splashSub">EARLY STRUCTURAL DAMAGE DETECTION</div>
+    <div id="splashBar"><div id="splashFill"></div></div>
+    <div id="splashNote">Powered by MobileNetV2 · Grad-CAM · YOLOv7</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ LANDING -->
+<div id="landing" class="page hidden">
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div id="navLogo">STRUCT<b>SCAN</b></div>
+    <div id="navLinks">
+      <a href="#modes">Analyse</a>
+      <a href="#howItWorks">How it works</a>
+      <a href="#models">Models</a>
+    </div>
+    <div id="navStatus">
+      <span id="navDot"></span>
+      <span id="navStatusText">connecting...</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div id="heroTag">B.Tech Final Year Project · Computer Vision & ML</div>
+    <h1 id="heroTitle">Early Structural<br/><em>Damage Detection</em></h1>
+    <p id="heroDesc">
+      Real-time crack detection and structural health monitoring using
+      deep learning. Analyse live camera feeds, images, and videos instantly.
+    </p>
+    <a href="#modes" id="heroCta">Start Analysis ↓</a>
+  </section>
+
+  <!-- THREE MODE CARDS -->
+  <section id="modes">
+    <div class="section-label">SELECT INPUT METHOD</div>
+    <div id="modeCards">
+
+      <div class="modeCard" id="cardCamera" onclick="openMode('camera')">
+        <div class="cardNum">01</div>
+        <div class="cardIcon">◉</div>
+        <div class="cardTitle">Live Camera</div>
+        <div class="cardDesc">Real-time crack detection via webcam or CCTV feed. Continuous frame-by-frame analysis.</div>
+        <div class="cardTag">WebSocket · Real-Time</div>
+        <div class="cardArrow">→</div>
+      </div>
+
+      <div class="modeCard" id="cardImage" onclick="openMode('image')">
+        <div class="cardNum">02</div>
+        <div class="cardIcon">▣</div>
+        <div class="cardTitle">Image Analysis</div>
+        <div class="cardDesc">Upload photographs of structures for detailed crack classification and zone mapping.</div>
+        <div class="cardTag">JPG · PNG · WebP</div>
+        <div class="cardArrow">→</div>
+      </div>
+
+      <div class="modeCard" id="cardVideo" onclick="openMode('video')">
+        <div class="cardNum">03</div>
+        <div class="cardIcon">▶</div>
+        <div class="cardTitle">Video Analysis</div>
+        <div class="cardDesc">Process recorded footage with frame-by-frame analysis and timeline navigation.</div>
+        <div class="cardTag">MP4 · AVI · MOV</div>
+        <div class="cardArrow">→</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="howItWorks">
+    <div class="section-label">HOW IT WORKS</div>
+    <div id="steps">
+      <div class="step">
+        <div class="stepNum">1</div>
+        <div class="stepText">
+          <div class="stepTitle">Input Capture</div>
+          <div class="stepDesc">Frame is captured from camera, image upload, or video file and sent to the analysis server.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepNum">2</div>
+        <div class="stepText">
+          <div class="stepTitle">CLAHE Normalization</div>
+          <div class="stepDesc">Lighting variations are normalized using Contrast Limited Adaptive Histogram Equalization to prevent false positives.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepNum">3</div>
+        <div class="stepText">
+          <div class="stepTitle">MobileNetV2 Classification</div>
+          <div class="stepDesc">Transfer-learned neural network classifies the frame as Cracked or Non-Cracked with confidence score.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepNum">4</div>
+        <div class="stepText">
+          <div class="stepTitle">Grad-CAM Localisation</div>
+          <div class="stepDesc">Gradient-weighted Class Activation Maps highlight the exact regions driving the crack classification decision.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepNum">5</div>
+        <div class="stepText">
+          <div class="stepTitle">YOLOv7 Segmentation</div>
+          <div class="stepDesc">Object detection model draws precise bounding boxes and segmentation masks around detected crack regions.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepNum">6</div>
+        <div class="stepText">
+          <div class="stepTitle">Zone Grid Analysis</div>
+          <div class="stepDesc">8×8 grid scores 64 individual zones, identifying which sections of the structure are most at risk.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODELS INFO -->
+  <section id="models">
+    <div class="section-label">DETECTION CAPABILITIES</div>
+    <div id="modelGrid">
+      <div class="modelCard">
+        <div class="modelIcon">🧱</div>
+        <div class="modelName">Concrete Walls</div>
+        <div class="modelNote">Hairline to structural cracks</div>
+      </div>
+      <div class="modelCard">
+        <div class="modelIcon">🛣</div>
+        <div class="modelName">Road Surfaces</div>
+        <div class="modelNote">Pavement crack detection</div>
+      </div>
+      <div class="modelCard">
+        <div class="modelIcon">🏗</div>
+        <div class="modelName">Structural Decks</div>
+        <div class="modelNote">Bridge & deck damage</div>
+      </div>
+      <div class="modelCard">
+        <div class="modelIcon">⚡</div>
+        <div class="modelName">Spalling</div>
+        <div class="modelNote">Material delamination</div>
+      </div>
+      <div class="modelCard">
+        <div class="modelIcon">↗</div>
+        <div class="modelName">Shear Cracks</div>
+        <div class="modelNote">Diagonal stress failure</div>
+      </div>
+      <div class="modelCard">
+        <div class="modelIcon">↕</div>
+        <div class="modelName">Settlement Cracks</div>
+        <div class="modelNote">Foundation movement</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEVERITY SCALE -->
+  <section id="severitySection">
+    <div class="section-label">SEVERITY SCALE</div>
+    <div id="sevScale">
+      <div class="sevItem" style="--c:#22c55e">
+        <div class="sevRange">0 – 20%</div>
+        <div class="sevName">SAFE</div>
+        <div class="sevNote">No action required</div>
+      </div>
+      <div class="sevItem" style="--c:#84cc16">
+        <div class="sevRange">20 – 30%</div>
+        <div class="sevName">RISK</div>
+        <div class="sevNote">Monitor closely</div>
+      </div>
+      <div class="sevItem" style="--c:#f59e0b">
+        <div class="sevRange">30 – 50%</div>
+        <div class="sevName">HIGH RISK</div>
+        <div class="sevNote">Inspection needed</div>
+      </div>
+      <div class="sevItem" style="--c:#f97316">
+        <div class="sevRange">50 – 75%</div>
+        <div class="sevName">DANGEROUS</div>
+        <div class="sevNote">Engineer required</div>
+      </div>
+      <div class="sevItem" style="--c:#ef4444">
+        <div class="sevRange">75 – 100%</div>
+        <div class="sevName">CRITICAL</div>
+        <div class="sevNote">Evacuate if needed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM CREDITS -->
+  <section id="credits">
+    <div class="section-label">PROJECT TEAM</div>
+    <div id="creditsGrid">
+      <div class="creditCard">
+        <div class="creditRole">Project Lead</div>
+        <div class="creditName">Sagar Dixit</div>
+        <div class="creditInfo">Project Coordinator & Architecture</div>
+      </div>
+      <div class="creditCard">
+        <div class="creditRole">Backend Dev</div>
+        <div class="creditName">Kuldeep Singh </div>
+        <div class="creditInfo">Web Integration & System Design</div>
+      </div>
+      <div class="creditCard">
+        <div class="creditRole">Frontend Dev</div>
+        <div class="creditName">Sahil Pal</div>
+        <div class="creditInfo">Deployment </div>
+      </div>
+      <div class="creditCard">
+        <div class="creditRole">QA / Researcher</div>
+        <div class="creditName">Sachin Sharma</div>
+        <div class="creditInfo">Literature Review & Research</div>
+      </div>
+    </div>
+    <div id="creditsNote">
+      B.Tech Final Year Project · Supervised by Mrs. Sapna Sharma(Guide) · CSE · and · Mr. Rohit Maurya (Co-Guide) · Department of Civil Engineering · Hindustan College of Science & Technology · 2025–26
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div>StructScan · B.Tech Final Year Project · Structural Damage Detection</div>
+    <div>MobileNetV2 + Grad-CAM + YOLOv7 · Trained on Crack500 + SDNET2018</div>
+  </footer>
+
+</div><!-- /landing -->
+
+<!-- ═══════════════════════════════════════════════════════ ANALYSIS PAGE -->
+<div id="analysisPage" class="page hidden">
+
+  <!-- TOP BAR -->
+  <div id="analysisBar">
+    <button id="backBtn" onclick="goBack()">← Back</button>
+    <div id="analysisTitle">LIVE CAMERA</div>
+    <div id="analysisBadge">
+      <span id="aBadgeDot"></span>
+      <span id="aBadgeText">READY</span>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT: feed top, results below (scrollable) -->
+  <div id="analysisSplit" style="overflow-y:auto;flex:1">
+
+    <!-- LEFT: Feed + Controls -->
+    <div id="feedCol">
+
+      <div id="feedBox">
+        <div id="feedCornerTL"></div>
+        <div id="feedCornerBR"></div>
+        <div id="feedScanLine"></div>
+
+        <div id="feedPlaceholder">
+          <div id="phIcon">◎</div>
+          <div id="phMsg">Ready to analyse</div>
+          <div id="phSub">Press Start to begin</div>
+        </div>
+
+        <video id="videoEl" autoplay playsinline muted></video>
+        <img id="resultImg" alt="analysis"/>
+        <canvas id="capCanvas"></canvas>
+      </div>
+
+      <!-- Live crack risk bar -->
+      <div id="liveBarTrack">
+        <div id="liveBar"></div>
+      </div>
+
+      <div id="feedMeta">
+        <span id="metaMode">—</span>
+        <span id="metaFPS">FPS: —</span>
+        <span id="metaFrames">Frames: —</span>
+        <span id="metaDim">—</span>
+      </div>
+
+      <!-- Controls -->
+      <div id="controls">
+        <button id="btnStart" class="ctrlBtn primary" onclick="startAnalysis()">▶ START</button>
+        <button id="btnStop"  class="ctrlBtn danger"  onclick="hardStop()">■ STOP</button>
+      </div>
+
+      <input type="file" id="fileInput" style="display:none"/>
+
+      <!-- Video timeline -->
+      <div id="videoTimeline" style="display:none">
+        <div id="tlHeader">
+          <span id="tlTitle">VIDEO TIMELINE</span>
+          <button id="tlAutoPlay" onclick="toggleAutoPlay()">▶ AUTO-PLAY</button>
+        </div>
+        <div id="tlBar"></div>
+      </div>
+
+    </div><!-- /feedCol -->
+
+    <!-- RIGHT: Results -->
+    <div id="resultsCol">
+
+      <!-- Severity card -->
+      <div id="sevCard">
+        <div id="sevHeader">
+          <div>
+            <div id="sevLevelText">AWAITING</div>
+            <div id="sevLabelText">No analysis yet</div>
+          </div>
+          <div id="sevPct">—<small>%</small></div>
+        </div>
+        <div id="sevTrack"><div id="sevFill"></div></div>
+        <div id="sevMessage">Start analysis to see results.</div>
+      </div>
+
+      <!-- Stats row -->
+      <div id="statsRow">
+        <div class="statBox"><div class="statVal" id="stConf">—</div><div class="statLbl">CONFIDENCE</div></div>
+        <div class="statBox"><div class="statVal" id="stZones">—</div><div class="statLbl">ZONES HIT</div></div>
+        <div class="statBox"><div class="statVal" id="stFPS">—</div><div class="statLbl">LIVE FPS</div></div>
+        <div class="statBox"><div class="statVal" id="stType">—</div><div class="statLbl">CRACK TYPE</div></div>
+      </div>
+
+      <!-- Surface + Depth info -->
+      <div id="surfaceRow" style="display:none">
+        <div class="resBlock">
+          <div class="resTitle">SURFACE ANALYSIS</div>
+          <div id="surfaceInfo"></div>
+        </div>
+      </div>
+
+      <!-- Crack classification -->
+      <div class="resBlock" id="crackBlock" style="display:none">
+        <div class="resTitle">CRACK CLASSIFICATION</div>
+        <div id="crackRows"></div>
+      </div>
+
+      <!-- Factors -->
+      <div class="resBlock" id="factorsBlock" style="display:none">
+        <div class="resTitle">FACTORS AFFECTING STRUCTURE</div>
+        <div id="factorsList"></div>
+      </div>
+
+      <!-- Recommended actions -->
+      <div class="resBlock">
+        <div class="resTitle">RECOMMENDED ACTIONS</div>
+        <ol id="actionList"><li class="actionMuted">Awaiting analysis...</li></ol>
+      </div>
+
+      <!-- Helplines -->
+      <div class="resBlock" id="helplineBlock" style="display:none">
+        <div class="resTitle danger">⚠ EMERGENCY HELPLINES</div>
+        <div id="helplineList"></div>
+      </div>
+
+      <!-- Activity log -->
+      <div class="resBlock">
+        <div class="resTitle">ACTIVITY LOG</div>
+        <div id="logScroll"></div>
+      </div>
+
+    </div><!-- /resultsCol -->
+  </div><!-- /analysisSplit -->
+</div><!-- /analysisPage -->
+
+<script src="/static/app.js"></script>
+<script src="/static/qr.js"></script>
+</body>
+</html>
